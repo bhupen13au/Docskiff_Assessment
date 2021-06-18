@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Registration Form With Html & Css</title>
+      <link rel="stylesheet" href="{% static 'login.css' %}">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+      <a style="margin-left: 80%;" href="/user/logout/" class="button-reg">logout</a>
+      <div>
+        <h2>Product owned by {{username}} are:</h2>
+        {% if products %}
+          {% for product in products %}
+            <li> {{ product }} </li>
+          {% endfor %}
+        {% else %}
+          <h4>No Data found</h4>
+        {% endif %}
+      </div>
+    </body>
+</html>
