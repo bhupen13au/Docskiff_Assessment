@@ -3,10 +3,18 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import Product
 
+
 def home(request):
+    """
+    Redirects to the login page
+    """
     return redirect('login')
 
+
 def register(request):
+    """
+    View for registration page and posting user submitted data
+    """
     if request.method == 'POST':
         email = request.POST['email']
         username = request.POST['username']
@@ -28,7 +36,11 @@ def register(request):
     else:
         return render(request, 'registration.html')
 
+
 def login(request):
+    """
+    View for login page and authenticating user which will redirect to details page
+    """
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -43,7 +55,11 @@ def login(request):
     else:
         return render(request, 'login.html')
 
+
 def details(request, username):
+    """
+    View for logged-in user which shows user owned products
+    """
     if request.user.is_authenticated:
         user_products = Product.objects.filter(owner__username=username)
         context = {}
@@ -53,6 +69,10 @@ def details(request, username):
     else:
         return redirect('home')
 
+
 def logout(request):
+    """
+    View after logout which will redirect to home page
+    """
     auth.logout(request)
     return redirect('home')
