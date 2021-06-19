@@ -38,8 +38,22 @@ def get_interval_dates(start_date_str, end_date_str):
     :param end_date_str: end date in string (inclusive date)
     :return: None (prints result dates line by line)
     """
+    if type(start_date_str) != str or type(end_date_str) != str:
+        print("Invalid input type, must be string")
+        return
+
     start_date = datetime.strptime(start_date_str, '%Y%m%d').date()
     end_date = datetime.strptime(end_date_str, '%Y%m%d').date()
+
+    if (start_date < date(1900, 1, 1)) or (start_date > date(2100, 12, 31)) or \
+            (end_date < date(1900, 1, 1)) or (end_date > date(2100, 12, 31)):
+        print("Invalid date range")
+        return
+
+    if start_date > end_date:
+        print("end date must be greater than start date")
+        return
+    
     res = []
     for sat in all_sat_btw_dates(start_date, end_date):
         if sat.day % 5 == 0:
